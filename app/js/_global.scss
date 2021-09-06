@@ -1,0 +1,247 @@
+$text-color: #FFF;
+$accent-color: #FFB548;
+$btn-text-color: #1A1917;
+
+@function adaptiv-value($pcWidth, $pcSize, $mobWidth, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    @return  calc(#{$mobSize + px} + #{$addSize} * ((100vw - #{$mobWidth + px}) / #{$pcWidth - $mobWidth}));
+}
+
+%h1-font, %h2-font {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: bold;
+    // font-size: 80px;
+    font-size: clamp(33px, 6.67vw, 80px);
+    // font-size: calc(33px + (80 - 33) * ((100vw - 320px) / (1200 - 320)));
+    line-height: 1;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+%h3-font {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: bold;
+    // font-size: 36px;
+    font-size: clamp(21px, 3vw, 36px);
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $accent-color;
+}
+
+%h4-font {
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: bold;
+    // font-size: 24px;
+    font-size: clamp(18px, 2vw, 24px);
+    // font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
+    // font-size: calc(14px + (24px - 14px) * ((100vw - 320px) / (1200px - 320px)));
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+%default-font {
+    font-family: 'Open Sans', sans-serif;
+    // font-size: 18px;
+    font-size: clamp(14px, 1.5vw, 18px);
+    line-height: 1.22;
+}
+
+%subtext-font {
+    font-family: 'Open Sans', sans-serif;
+    // font-size: 14px;
+    font-size: clamp(12px, 1.17vw, 14px);
+    // line-height: 19px;
+    line-height: 1.36;
+    color: rgba(#FFF, .5);
+}
+
+%main-button-font {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    // font-size: 16px;
+    font-size: clamp(14px, 1.33vw, 16px);
+    // line-height: 22px;
+    line-height: 1.375;
+    color: $btn-text-color;
+}
+
+%navigation-font {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @extend %default-font;
+    background-color: #080A0B;
+    color: $text-color;
+}
+
+h1, h2, h3, h4, h5, h6,
+p {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+}
+
+a {
+    color: $text-color;
+    text-decoration: none;
+    transition: color .5s;
+
+    &:hover {
+        color: $accent-color;
+    }
+}
+
+.btn {
+    @extend %main-button-font;
+    padding: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: linear-gradient(195deg, $accent-color 11%, #F3AF34 90%);
+    transition: all .5s, transform .1s;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba($btn-text-color, .1);
+        border: 1px solid $accent-color;
+        color: $accent-color;
+    }
+
+    &:active {
+        transform: scale(.99);
+    }
+}
+
+.title {
+    @extend %h2-font;
+}
+
+.subtitle {
+    @extend %h4-font;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.paragraph {
+    @extend %default-font;
+    text-align: justify;
+
+    & + & {
+        margin-top: 20px;
+    }
+}
+
+.underline {
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 6px;        
+        background-color: $accent-color;
+        z-index: -1;
+    }
+}
+
+.container {
+    max-width: 1230px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.page-section {
+    min-height: 100vh;
+    padding: 95px 0 50px;
+}
+
+.feedback-card {
+    position: relative;
+    // width: 465px;
+    max-width: 465px;
+    width: 100%;
+    margin: 15px 0;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: box-shadow .5s;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 30px;
+        right: 20px;
+        width: 18px;
+        height: 14px;
+        background: url(../images/twitter.svg);
+    }
+
+    &:hover {
+        box-shadow: 1px 1px 0 1px $accent-color;
+    }
+
+    &__user {
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    &__user-avatar {
+        width: 69px;
+        height: 67px;
+        margin-right: 20px;
+        border-radius: 50px;
+        background-color: $accent-color;
+    }
+
+    &__user-img {
+        width: 62px;
+        height: 62px;
+        border-radius: 50px;
+    }
+
+    &__user-name {
+        
+        a {
+            @extend %h4-font;
+            color: $accent-color;
+
+            &:hover {
+                color: darken($accent-color, 10%);
+            }
+        }
+    }
+
+    &__user-workplace {
+        color: rgba(#FFF, .5);
+    }
+
+    &__quote {
+        margin-bottom: 15px;
+    }
+
+    &__date {
+        @extend %subtext-font;
+    }
+}
