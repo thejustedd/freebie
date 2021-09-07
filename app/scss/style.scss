@@ -71,10 +71,10 @@ a {
   opacity: 1;
   transition: all 0.5s ease;
 
-  &--hide {
-    opacity: 0;
-    z-index: -1;
-  }
+  // &--hide {
+  //   opacity: 0;
+  //   z-index: -1;
+  // }
 }
 
 .menu {
@@ -672,11 +672,13 @@ a {
     min-height: 65vh;
     height: 100%;
     margin-right: auto;
+    margin-left: -15px;
+    // padding-left: 15px;
     background: url(../images/footer-bg.png) right center / cover no-repeat;
   }
 
   &__body {
-    margin-left: clamp(20px, 8.33vw, 100px);
+    margin-left: clamp(0, 8.33vw, 100px);
     max-width: 660px;
   }
 

@@ -253,13 +253,11 @@ var isSomeKeyPressed = false;
 document.addEventListener('keydown', e => {
   isSomeKeyPressed = true;
   pageSlider.mousewheel.disable();
-  console.log(isSomeKeyPressed);
 });
 
 document.addEventListener('keyup', e => {
   isSomeKeyPressed = false;
   pageSlider.mousewheel.enable();
-  console.log(isSomeKeyPressed);
 });
 
 function touchmove() {
@@ -280,7 +278,7 @@ function touchmove() {
     // console.log('diffHeight:', slide.scrollHeight - slide.offsetHeight);
     let onlyScrolling =
       (slide.scrollHeight > slide.offsetHeight) && (
-        (touchesDiff < 0 && startScroll >= 0 && startScroll < diffHeight) ||
+        (touchesDiff < 0 && startScroll >= 0 && diffHeight - startScroll > 1) ||
         (touchesDiff > 0 && startScroll > 0 && startScroll <= diffHeight)
         // (touchesDiff < 0 && startScroll === 0) ||
         // (touchesDiff > 0 && startScroll === diffHeight) ||
@@ -321,7 +319,7 @@ function mousewheel() {
       let scrollDifference = scrollHeight - slideSize - acs.scrollTop;
 
       // Scroll wheel browser compatibility
-      let delta = event.wheelDelta || -1 * event.deltaY;
+      let delta = e.wheelDelta || -1 * e.deltaY;
 
       // Enable scrolling if at edges
       let spos = delta < 0 ? 0 : scrollDifferenceTop;

@@ -553,8 +553,8 @@ a:hover {
 }
 :root {
   --screenshot-width: 500px;
-  --thumb-color: rgba(255, 255, 255, .5);
-  --track-color: rgba(0, 0, 0, .5);
+  --thumb-color: rgba(255, 255, 255, 0.5);
+  --track-color: rgba(0, 0, 0, 0.5);
   font-size: 18px;
 }
 
@@ -601,10 +601,6 @@ a:hover {
   right: 0;
   opacity: 1;
   transition: all 0.5s ease;
-}
-.main-menu--hide {
-  opacity: 0;
-  z-index: -1;
 }
 
 .menu {
@@ -677,7 +673,7 @@ a:hover {
   display: block;
   width: 100%;
   height: 2px;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 3px;
 }
 .menu__toggle-btn::before, .menu__toggle-btn::after {
@@ -687,7 +683,7 @@ a:hover {
   right: 0;
   width: 100%;
   height: 2px;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 3px;
   transition: all 0.5s ease;
 }
@@ -722,7 +718,7 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(190% 61% at 50% 38%, rgba(255, 181, 72, 0) 0%, rgba(52, 44, 29, 0.8) 73%, #08090A 100%);
+  background: radial-gradient(190% 61% at 50% 38%, rgba(255, 181, 72, 0) 0%, rgba(52, 44, 29, 0.8) 73%, #08090a 100%);
 }
 .header__slider-img {
   display: block;
@@ -776,7 +772,7 @@ a:hover {
 .header__scroll-btn svg {
   display: block;
   margin: 5px auto 0;
-  stroke: #FFF;
+  stroke: #fff;
   transition: stroke 0.5s ease;
 }
 .header__scroll-btn:hover svg {
@@ -850,7 +846,7 @@ a:hover {
   content: "";
 }
 .about__slider-next svg {
-  stroke: #FFF;
+  stroke: #fff;
   transition: stroke 0.5s ease;
 }
 .about__slider-next svg:hover {
@@ -864,7 +860,7 @@ a:hover {
   width: 14px;
   height: 14px;
   margin: 0 26px !important;
-  border: 1.3px solid #FFF;
+  border: 1.3px solid #fff;
   background-color: transparent;
   opacity: 1;
   transition: background 0.5s ease, border 0.5s ease;
@@ -880,11 +876,11 @@ a:hover {
   transform: translate(100%, -50%);
   height: 2px;
   width: 0;
-  background-color: #FFF;
+  background-color: #fff;
   transition: width 0.5s ease;
 }
 .about__slider-pagination .swiper-pagination-bullet-active {
-  background-color: #FFF;
+  background-color: #fff;
   cursor: auto;
 }
 .about__slider-pagination .swiper-pagination-bullet-active:hover {
@@ -924,7 +920,7 @@ a:hover {
   cursor: default;
 }
 .features__tablist-input:checked + .features__tablist-point::before {
-  background-color: #FFF;
+  background-color: #fff;
 }
 .features__tablist-input:checked + .features__tablist-point::after {
   height: 200px;
@@ -947,7 +943,7 @@ a:hover {
   transform: translateY(-50%);
   width: 14px;
   height: 14px;
-  border: 1.3px solid #FFF;
+  border: 1.3px solid #fff;
   border-radius: 50%;
   transition: background 0.5s ease, border 0.5s ease;
 }
@@ -958,7 +954,7 @@ a:hover {
   left: -38px;
   width: 2px;
   height: 0;
-  background-color: #FFF;
+  background-color: #fff;
   transition: all 0.5s ease;
 }
 .features__tablist-point:hover {
@@ -1060,10 +1056,11 @@ a:hover {
   min-height: 65vh;
   height: 100%;
   margin-right: auto;
+  margin-left: -15px;
   background: url(../images/footer-bg.png) right center/cover no-repeat;
 }
 .footer__body {
-  margin-left: clamp(20px, 8.33vw, 100px);
+  margin-left: clamp(0, 8.33vw, 100px);
   max-width: 660px;
 }
 .footer__title {
@@ -1123,19 +1120,19 @@ a:hover {
 }
 .footer__social-img {
   margin: 0 auto;
-  fill: #FFF;
+  fill: #fff;
 }
 .footer__social-facebook:hover .footer__social-img {
-  fill: #4267B2;
+  fill: #4267b2;
 }
 .footer__social-twitter:hover .footer__social-img {
-  fill: #1DA1F2;
+  fill: #1da1f2;
 }
 .footer__social-youtube:hover .footer__social-img {
-  fill: #FF0000;
+  fill: #ff0000;
 }
 .footer__social-twitch:hover .footer__social-img {
-  fill: #6441A4;
+  fill: #6441a4;
 }
 .footer__copyright {
   display: flex;
@@ -1148,7 +1145,7 @@ a:hover {
   padding-right: 5px;
 }
 .footer__policy-link + .footer__policy-link {
-  border-left: 1px solid #FFF;
+  border-left: 1px solid #fff;
   padding-left: 10px;
 }
 
@@ -1213,7 +1210,7 @@ a:hover {
   transition: background-color 0.3s ease 0s;
 }
 .page__bullet--active {
-  background-color: #FFF;
+  background-color: #fff;
 }
 .page__scroll {
   position: absolute;
@@ -1371,6 +1368,10 @@ a:hover {
     width: 100%;
   }
 
+  .main-menu .menu--hide {
+    opacity: 0;
+    z-index: -1;
+  }
   .main-menu .menu__toggle-btn {
     width: 25px;
     margin-left: 20px;
@@ -1378,6 +1379,7 @@ a:hover {
     z-index: 1;
   }
   .main-menu .menu__list {
+    z-index: 50;
     display: block;
     position: fixed;
     top: 0;
@@ -1455,8 +1457,8 @@ a:hover {
   .footer__policy-link {
     display: block;
     text-align: center;
-    border-left: 1px solid #FFF;
-    border-right: 1px solid #FFF;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
   }
   .footer__policy-link + .footer__policy-link {
     margin-top: 22px;
