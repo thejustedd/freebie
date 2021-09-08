@@ -387,6 +387,7 @@ template {
   src: local("Bebas Neue Bold"), local("BebasNeueBold"), url("../fonts/bebasneuebold.woff2") format("woff2"), url("../fonts/bebasneuebold.woff") format("woff"), url("../fonts/bebasneuebold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -394,6 +395,7 @@ template {
   src: local("Open Sans"), local("OpenSans"), url("../fonts/opensans.woff2") format("woff2"), url("../fonts/opensans.woff") format("woff"), url("../fonts/opensans.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -401,6 +403,7 @@ template {
   src: local("Open Sans Bold"), local("OpenSans-Bold"), url("../fonts/opensansbold.woff2") format("woff2"), url("../fonts/opensansbold.woff") format("woff"), url("../fonts/opensansbold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 .header__title,
@@ -968,7 +971,7 @@ a:hover {
   text-transform: uppercase;
 }
 
-.about {
+.no-webp .about {
   background: url(../img/about-gradient.png) 0 0/cover no-repeat, url(../img/about-bg.jpg) center/cover no-repeat;
 }
 
@@ -1112,7 +1115,7 @@ a:hover {
   width: 26px;
 }
 
-.features {
+.no-webp .features {
   background: url(../img/features-gradient.png) 0 0/cover no-repeat, url(../img/features-bg.jpg) top/cover no-repeat;
 }
 
@@ -1218,7 +1221,7 @@ a:hover {
   transition: all 0.5s ease;
 }
 
-.requirements {
+.no-webp .requirements {
   background: url(../img/requirements-gradient.png) center/cover no-repeat, url(../img/requirements-bg.jpg) bottom/cover no-repeat;
 }
 
@@ -1256,7 +1259,7 @@ a:hover {
   margin-bottom: 10px;
 }
 
-.quotes {
+.no-webp .quotes {
   background: url(../img/quotes-gradient.png) 0 0/cover no-repeat, url(../img/quotes-bg.jpg) bottom/cover no-repeat;
 }
 
@@ -1341,12 +1344,12 @@ a:hover {
 }
 
 .footer__img {
+  min-width: clamp(230px, 37vw, 445px);
+  margin: -95px auto -50px -150px;
+}
+
+.footer__img img {
   width: 100%;
-  min-height: 65vh;
-  height: 100%;
-  margin-right: auto;
-  margin-left: -15px;
-  background: url(../img/footer-bg.png) right center/cover no-repeat;
 }
 
 .footer__body {
@@ -1471,7 +1474,6 @@ a:hover {
 }
 
 .main-wrapper {
-  min-height: 100vh;
   opacity: 0;
   -webkit-transition: opacity 0.5s ease;
   -o-transition: opacity 0.5s ease;
@@ -1479,6 +1481,10 @@ a:hover {
 }
 
 .main-wrapper--loaded {
+  opacity: 1;
+}
+
+.no-js .main-wrapper {
   opacity: 1;
 }
 
@@ -1668,8 +1674,10 @@ a:hover {
   background: url(../img/quotes-gradient.webp) 0 0/cover no-repeat, url(../img/quotes-bg.webp) bottom/cover no-repeat;
 }
 
-.webp .footer__img {
-  background: url(../img/footer-bg.webp) right center/cover no-repeat;
+@media (min-width: 992px) {
+  .footer__img {
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 1200px) {

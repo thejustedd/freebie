@@ -1,6 +1,8 @@
 // import Swiper from 'swiper';
 // import 'swiper/css';
 
+document.documentElement.classList.remove("no-js");
+
 const headerSlider = new Swiper('.header__slider', {
   autoplay: {
     delay: 10000,
