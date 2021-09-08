@@ -1,4 +1,4 @@
-const { src, dest, series, parallel, watch, lastRun } = require('gulp'),
+const { src, dest, series, parallel, watch } = require('gulp'),
   browsersync = require('browser-sync').create(),
   fileinclude = require('gulp-file-include'),
   del = require('del'),
@@ -16,11 +16,13 @@ const { src, dest, series, parallel, watch, lastRun } = require('gulp'),
   ttf2woff = require('gulp-ttf2woff'),
   ttf2woff2 = require('gulp-ttf2woff2'),
   fonter = require('gulp-fonter'),
-  fs = require('fs');
+  fs = require('fs'),
+  gulpif = require('gulp-if');
 
 // const project_folder = require('path').basename(__dirname);
 const project_folder = 'dist';
 const source_folder = 'src';
+let isProd = false;
 
 const path = {
   build: {
@@ -52,13 +54,15 @@ function browserSync(cb) {
       baseDir: './' + project_folder + '/'
     },
     // tunnel: 'freebie',
-    // open: false,
+    // tunnel: true,
+    online: true,
+    open: false,
     // open: 'tunnel',
   });
   cb();
 }
 
-function html() {
+async function html() {
   return src(path.src.html)
     .pipe(fileinclude())
     .pipe(webphtml())
@@ -66,7 +70,7 @@ function html() {
     .pipe(browsersync.stream());
 }
 
-function css() {
+async function css() {
   return src(path.src.css)
     .pipe(scss({ outputStyle: 'expanded' }).on('error', scss.logError))
     .pipe(webpcss())
@@ -75,8 +79,8 @@ function css() {
       overrideBrowserslist: ['last 5 versions'],
       cascade: true
     }))
-    .pipe(dest(path.build.css))
-    .pipe(clean_css())
+    .pipe(gulpif(isProd, dest(path.build.css)))
+    .pipe(gulpif(isProd, clean_css()))
     .pipe(rename({
       extname: '.min.css'
     }))
@@ -84,11 +88,11 @@ function css() {
     .pipe(browsersync.stream());
 }
 
-function js() {
+async function js() {
   return src(path.src.js)
     .pipe(fileinclude())
-    .pipe(dest(path.build.js))
-    .pipe(uglify())
+    .pipe(gulpif(isProd, dest(path.build.js)))
+    .pipe(gulpif(isProd, uglify()))
     .pipe(rename({
       extname: '.min.js'
     }))
@@ -100,14 +104,14 @@ function images() {
   return src(path.src.img)
     .pipe(webp({ quality: 70 }))
     .pipe(dest(path.build.img))
-    .pipe(src(path.src.img))
-    .pipe(imagemin({
+    .pipe(gulpif(isProd, src(path.src.img)))
+    .pipe(gulpif(isProd, imagemin({
       progressive: true,
       svgoPlugins: [{ removeViewBox: false }],
       interlaced: true,
       optimizationLevel: 3 // 0 to 7
-    }))
-    .pipe(dest(path.build.img))
+    })))
+    .pipe(gulpif(isProd, dest(path.build.img)))
     .pipe(browsersync.stream());
 }
 
@@ -163,13 +167,19 @@ function fontsStyle(cb) {
 }
 
 function watchFiles(cb) {
-  watch([path.watch.html], { ignoreInitial: false }, html);
-  watch([path.watch.css], { ignoreInitial: false }, css);
-  watch([path.watch.js], { ignoreInitial: false }, js);
+  watch([path.watch.html], html);
+  watch([path.watch.css], css);
+  watch([path.watch.js], js);
+  watch([path.watch.img], images);
+
+  // watch([path.watch.html], html).on('change', browsersync.reload);
+  // watch([path.watch.css], css).on('change', browsersync.reload);
+  // watch([path.watch.js], js).on('change', browsersync.reload);
+
   // watch([path.watch.html], { ignoreInitial: false }, html);
   // watch([path.watch.css], { ignoreInitial: false }, css);
   // watch([path.watch.js], { ignoreInitial: false }, js);
-  watch([path.watch.img], images);
+
   cb();
 }
 
@@ -178,9 +188,16 @@ function clean() {
 }
 
 // const build = series(clean, parallel(html, css, js, images, fonts), fontsStyle);
-// const watching = parallel(build, watchFiles, browserSync);
 const build = series(clean, parallel(html, css, js, images, fonts));
-const watching = parallel(html, css, js, watchFiles, browserSync);
+// const watching = parallel(build, watchFiles, browserSync);
+// const watching = series(browserSync, parallel(html, css, js), watchFiles);
+const watching = parallel(html, css, js, images, watchFiles, browserSync);
+
+function prod(cb) {
+  isProd = true;
+  build();
+  cb();
+}
 
 exports.html = html;
 exports.css = css;
@@ -190,6 +207,7 @@ exports.svgSprite = svgSprite;
 exports.fonts = fonts;
 exports.otf2ttf = otf2ttf;
 exports.fontsStyle = fontsStyle;
+exports.prod = prod;
 exports.build = build;
 exports.watching = watching;
 exports.default = watching;
