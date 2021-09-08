@@ -73,7 +73,10 @@ async function html() {
 async function css() {
   return src(path.src.css)
     .pipe(scss({ outputStyle: 'expanded' }).on('error', scss.logError))
-    .pipe(webpcss())
+    .pipe(webpcss({
+      webpClass: '.webp',
+      noWebpClass: '.no-webp'
+    }))
     .pipe(group_media())
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 5 versions'],
